@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int firstZeroIndex(int arr[], int low, int high) {
+    if (high >= low) {
+        int mid = low + (high - low) / 2;
+        if ((mid == 0 || arr[mid - 1] == 1) && arr[mid] == 0)
+            return mid;
+        if (arr[mid] == 1)
+            return firstZeroIndex(arr, mid + 1, high);
+        return firstZeroIndex(arr, low, mid - 1);
+    }
+    return -1;
+}
+
+int main() {
+    int m;
+    scanf("%d", &m);
+    int arr[m];
+    for (int i = 0; i < m; i++)
+        scanf("%d", &arr[i]);
+    int index = firstZeroIndex(arr, 0, m - 1);
+    if (index == -1)
+        printf("0\n");
+    else
+        printf("%d\n", m - index);
+    return 0;
+}
